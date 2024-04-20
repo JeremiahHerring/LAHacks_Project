@@ -10,7 +10,7 @@ class StudyPlan():
 
         def sort_text(all_text: str) -> list['Section']:
             sorted_text = []
-            
+            # need info on the format of the string before continuing
             pass 
         
         # a list consisting of strings seperated by their week (time) association
