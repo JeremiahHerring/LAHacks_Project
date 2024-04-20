@@ -13,7 +13,8 @@ class State(rx.State):
 
     # The images to show.
     img: list[str]
-
+    
+    # currently doesn't handle clicking the upload button yet not inputting any files; files = [] #type annotation?
     async def handle_upload(self, files: list[rx.UploadFile]):
         """Handle the upload of file(s)."""
 
