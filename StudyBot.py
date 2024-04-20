@@ -4,9 +4,18 @@ At the command line, only need to run once to install the package via pip:
 $ pip install google-generativeai
 """
 
+from dotenv import load_dotenv
+import os
 import google.generativeai as genai
+import PyPDF2
 
-genai.configure(api_key="AIzaSyBmWmOUzXRLlURwcYGB-2Ykq-jghBGcjZA") # Make sure this is hidden
+# Load environment variables from .env file
+load_dotenv()
+
+# Retrieve the API key from the environment
+api_key = os.getenv("GENAI_API_KEY")
+
+genai.configure(api_key=api_key)
 
 # Set up the model
 generation_config = {
@@ -35,10 +44,6 @@ safety_settings = [
   },
 ]
 
-model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest",
-                              generation_config=generation_config,
-                              safety_settings=safety_settings)
-
 instruction = '''
 You are an AI expert specializing in creating personalized study plans for individuals experiencing mental health challenges in their academic pursuits, including issues like test anxiety and burnout.
 
@@ -50,12 +55,27 @@ Next, take into account any specific mental health concerns the user has inputte
 
 Tailor the study plan accordingly, integrating relevant topics from the syllabus while also implementing strategies to address the user's mental health challenges effectively.
 
-
 It's crucial to ensure that the study plan is well-rounded, manageable, and supportive of the user's overall well-being, with the ultimate goal of helping them achieve academic success while prioritizing their mental health.
 '''
 
-with open('a11.txt', encoding='utf-8') as file:
-    text_data = file.read()
+model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest",
+                              generation_config=generation_config,
+                              safety_settings=safety_settings,
+                              system_instruction = instruction)
+
+# Extract text from pdf
+def extract_text_from_pdf(pdf_path):
+    text = ""
+    with open(pdf_path, 'rb') as file:
+        pdf_reader = PyPDF2.PdfReader(file)
+        num_pages = len(pdf_reader.pages)
+        for page_number in range(num_pages):
+            page = pdf_reader.pages[page_number]
+            text += page.extract_text()
+    return text
+
+pdf_path = 'Chapter 3.pdf'
+text_data = extract_text_from_pdf(pdf_path)
 
 prompt = """test anxiety, burnt out"""
 

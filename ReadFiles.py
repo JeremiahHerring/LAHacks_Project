@@ -47,8 +47,8 @@ model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest",
                               generation_config=generation_config,
                               safety_settings=safety_settings)
 
-with open('a11.txt') as file:
-  text_data = file.read()
+with open('a11.txt', encoding='utf-8') as file:
+    text_data = file.read()
 
 response = model.generate_content(['What is this transcript?', text_data])
 print(response.text)
