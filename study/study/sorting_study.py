@@ -27,7 +27,7 @@ class Section():
     def __init__(week: int, focus: str, activities: list[str]):
         self._week = week
         self._focus = focus
-        # the activities label can be hard coded into the ui since it won't be changed,
+        # the activities label can be hard coded intgitgto the ui since it won't be changed,
         # only these activities
         self._activities = activities
 
