@@ -10,6 +10,7 @@ filename = f"{config.app_name}/{config.app_name}.py"
 
 class State(rx.State):
     """The app state."""
+    pass
 
 
 def index() -> rx.Component:
