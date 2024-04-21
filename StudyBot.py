@@ -120,15 +120,8 @@ def extract_text_from_pdf(pdf_path):
             text += page.extract_text()
     return text
 
-pdf_path = './uploaded_files/Chapter 3.pdf'
-text_data = extract_text_from_pdf(pdf_path)
 
-prompt = """test anxiety, burnt out"""
 
-combined_prompt = prompt + "\n" + text_data
-
-response = model.generate_content(combined_prompt)
-print(response.text)
 
 
 

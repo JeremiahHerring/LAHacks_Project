@@ -153,6 +153,9 @@ class FormState(rx.State):
 
         print(selected_options_string)
         print(time_str)
+        with open("form_data.txt", "w") as file:
+            file.write(selected_options_string + "\n")
+            file.write(time_str + "\n")
 
 def make_plan():
     return rx.dialog.root(

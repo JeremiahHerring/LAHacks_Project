@@ -36,11 +36,16 @@ style1 = {
 def upload_to_gemini(pdf_path):
     """Upload the PDF file to GeminiAPI."""
     text_data = extract_text_from_pdf(pdf_path)
-    time = "3 months"
-    mental_health = "test anxiety, burnt out"
+    time = ""
+    mental_health = ""
+    with open("form_data.txt", "r") as file:
+        time = file.readline().strip()
+        mental_health = file.readline().strip()
     combined_prompt = time + "\n" + mental_health + "\n" + text_data
     response = model.generate_content(combined_prompt)
-    print(response.text)
+    with open("response.txt", "w") as file:
+            file.write(response + "\n")
+    
 
 class State(rx.State):
     """The app state."""
