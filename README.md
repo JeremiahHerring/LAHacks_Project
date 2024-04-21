@@ -1,7 +1,6 @@
-# StudyDino | LAHacks 2024 🦖
+# <p align=center> StudyDino | LAHacks 2024 🦖 </p>
 
-*One of the largest struggles students face in academia is with poor mental health. Let's make our student's wellness ROAR and struggles EXTINCT!*
-<br>
+*<p align=center>One of the largest struggles students face in academia is with poor mental health. Let's make our student's wellness ROAR and struggles EXTINCT!</p>*
 <br>
 
 ## Preview 🌷
