@@ -29,8 +29,35 @@ def upload_to_gemini(pdf_path):
     response = model.generate_content(combined_prompt)
     print(response.text)
 
+# the removed astrick version should be passed through here 
+def format_input(s: str) -> str:
+    """Formats the given string to be formatted properly
+    when displayed"""
+    s = s.replace('*', '')
+    each_line = s.split('\n')
+    dupe_each_line = each_line.copy()
+    
+    # check for week # (if it's not week 1, then add '\n\n' to the start)
+    for line in range(len(each_line)):
+        curr_line = each_line[line]
+
+        if len(curr_line.strip()) >= 4 and curr_line.strip()[0:4] == 'Week':
+            week_num = curr_line.strip()[4:-1]
+            if week_num != '' and int(week_num) != 1:
+                dupe_each_line.insert(line, '\n\n')
+
+    s = '\n'.join(dupe_each_line)
+
+    return s
+
+# list.insert(element, index) -- only updates curr list 
+# ' '.join(list) -- convert a list into a string again
+
 class State(rx.State):
     """The app state."""
+    # include the given text
+    test_str = 'Week 1:\nFocus: Introduction to Syntax Analysis, Grammar, and Chomsky Hierarchy\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\n\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\n'
+    ai_plan: str = format_input(test_str).replace('\n', '\n\n')
 
     # The images to show.
     img: list[str]
@@ -59,6 +86,8 @@ class State(rx.State):
 
     def upload_page(self):
         return rx.redirect("/upload")
+    def studyplan_page(self):
+        return rx.redirect("/studyplan")
 
 header1_style = { #sets font for header
     "font_family": "Arial Rounded MT Bold",
@@ -323,6 +352,11 @@ def index() -> rx.Component:
         ),                 
     )
 
+# class VarActionState(rx.State):
+#     def act(self):
+#         State.handle_upload(rx.upload_files(upload_id="upload_file")),
+#         State.studyplan_page,
+
 def upload():
     """The main view"""
     return rx.center(
@@ -349,6 +383,14 @@ def upload():
             ),
             rx.hstack(rx.foreach(rx.selected_files("upload_file"), rx.text)),
             rx.flex(
+                rx.button(
+                    "Get my plan",
+                    on_click=State.studyplan_page,
+                    size="4",
+                    radius="full",
+                    background_color=rx.color_mode_cond("#C3E3C3", "#568356"),
+                    color=rx.color_mode_cond(black, white),
+                ),
                 rx.button(
                     "Upload",
                     on_click=State.handle_upload(rx.upload_files(upload_id="upload_file")),
@@ -381,6 +423,36 @@ def upload():
         background="radial-gradient(circle at 22% 11%,rgba(229, 255, 231,0.8),hsla(0,0%,100%,0) 30%),radial-gradient(circle at 82% 40%,rgba(253, 251, 230,0.8),hsla(0,0%,100%,0) 45%),radial-gradient(circle at 15% 85%,rgba(255, 227, 237, 0.8),hsla(0,0%,100%,0) 40%)",
     )
 
+def studyplan() -> rx.Component:
+    return rx.center(
+        navigation(),
+        rx.vstack(
+            rx.heading("Your custom ", rx.text.em("studydino"), " study plan", size="8", style=header1_style),
+            rx.box(
+                rx.container(
+                    rx.markdown(State.ai_plan, padding='50px 25px', align='center', position="center"),
+                ),
+                size="4",
+                border=f"1px dotted {rx.color_mode_cond(black, white)}",
+                border_radius="25px",
+                background_color=rx.color_mode_cond(white, black),
+                padding="5em",
+                align="center",
+                width="85%",    
+            ),   
+            align="center",
+            spacing="5",
+            font_size="1.5em",
+            height="260vh",
+        ),
+        padding="1em",
+        height="300vh",
+        background=rx.color_mode_cond(
+            "radial-gradient(circle at 22% 11%,rgba(229, 255, 231,0.8),hsla(0,0%,100%,0) 30%),radial-gradient(circle at 82% 40%,rgba(253, 251, 230,0.8),hsla(0,0%,100%,0) 45%),radial-gradient(circle at 15% 85%,rgba(255, 227, 237, 0.8),hsla(0,0%,100%,0) 40%)",
+            "radial-gradient(circle at 22% 11%,rgba(124, 147, 124,0.8),hsla(0,0%,100%,0) 30%),radial-gradient(circle at 82% 40%,rgba(187, 184, 159,0.8),hsla(0,0%,100%,0) 45%),radial-gradient(circle at 15% 85%,rgba(221, 203, 209, 0.8),hsla(0,0%,100%,0) 40%)"
+        ), 
+    )
+
 app = rx.App(style=style1,
              theme=rx.theme(
                 appearance="light", has_background=True, radius="full"
@@ -388,3 +460,4 @@ app = rx.App(style=style1,
             )
 app.add_page(index, title="studydino | home")
 app.add_page(upload, route="/upload", title="studydino | upload")
+app.add_page(studyplan, route="/studyplan", title="studydino | studyplan")
