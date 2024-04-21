@@ -33,26 +33,27 @@ def format_input(s: str) -> str:
 class State(rx.State):
     """The app state."""
     # include the given text
-    test_str = 'Week 1:\nFocus: Introduction to Syntax Analysis, Grammar, and Chomsky Hierarchy\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\n'
+    test_str = 'Week 1:\nFocus: Introduction to Syntax Analysis, Grammar, and Chomsky Hierarchy\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\n\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\n'
     ai_plan: str = format_input(test_str).replace('\n', '\n\n')
 
 
 def index() -> rx.Component:
     return rx.center(
         rx.vstack(
+            rx.flex(
             rx.box(
-                rx.container(
-                    rx.heading("Study Plan for ", rx.text.em("placeholder"), size="8", padding='25px 25px', align='center'),
                     rx.container(
-                        rx.markdown(State.ai_plan, align='center'),
-                        padding='25px 25px'
-                    ),
-                    size="4",
-                ),
+                        rx.heading("Study Plan for ", rx.text.em("placeholder"), size="8", padding='25px 25px', align='center', position="top"),
+                        rx.container(
+                            rx.markdown(State.ai_plan, padding='50px 25px', align='center', position="center"),
+                        ),
+                        size="4",
+                   ),
+                ),   
             ),
             spacing='2',
         ),
-        height="50vh",
+        height="100vh",
     )
 
 
