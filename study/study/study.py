@@ -10,7 +10,12 @@ filename = f"{config.app_name}/{config.app_name}.py"
 
 class State(rx.State):
     """The app state."""
-    pass
+    # this will be replaced with the initiliazation of this value?? as the attribute will change,
+    # we need functions to accomodate for that 
+    test_list: list[list] = [
+        ['test1', 'apple'], 
+        ['test2', 'no way....'],
+        ]
 
 def contained_card(input_heading: str, input_text: str) -> rx.container:
     """Makes a card and places it within a container, returns this 
@@ -24,9 +29,9 @@ def container(card: rx.card) -> rx.container:
     """Creates a container to hold a card"""
     return rx.container(
         # card function... 
-        card
-    ),
-    size="3",
+        card,
+        size="3",
+    )
 
 
 def card(input_heading: str, input_text: str) -> rx.card:
@@ -42,6 +47,7 @@ def card(input_heading: str, input_text: str) -> rx.card:
                 ),
             ),
             spacing="1",
+            padding="5px"
         ),
         as_child=True,
         
@@ -56,6 +62,9 @@ def index() -> rx.Component:
             # be created by parsing the text
             rx.box(
                 rx.heading("Study Plan changed", size="8", padding='2'),
+                rx.foreach(
+                    State.test_list, lambda values: contained_card(values[0], values[1])
+                ),
                 # contained_card('test1', 'apple'),
                 # contained_card('test2', 'no way....'),
                 # card('test1', 'apple'),
