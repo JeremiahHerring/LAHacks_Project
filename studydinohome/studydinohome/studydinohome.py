@@ -115,7 +115,14 @@ def navigation():
                 href="/",
             ),
             rx.spacer(width="100%"),
-            #menu here
+            rx.button(
+                    "Home",
+                    on_click=lambda: rx.redirect("/"),
+                    size="3",
+                    radius="full",
+                    background_color=rx.color_mode_cond("#C3E3C3", "#568356"),
+                    color=rx.color_mode_cond(black, white),
+                ),
             rx.color_mode.button(rx.color_mode.icon(), size="3", float="right", color=rx.color_mode_cond(black, white)),
             bg=rx.color_mode_cond(white, black),
             align="center",
@@ -123,6 +130,7 @@ def navigation():
             border_bottom="0.2em solid #F0F0F0",
             padding_x="10em",
             padding="1.5em",
+            spacing="4",
         ),
         position="fixed",
         width="100%",
@@ -407,7 +415,7 @@ def upload():
                     on_click=rx.clear_selected_files("upload_file"),
                     size="4",
                     radius="full",
-                    background_color=rx.color_mode_cond("#C3E3C3", "#568356"),
+                    background_color=rx.color_mode_cond("rgba(255, 227, 237, 0.8)", "rgba(244, 189, 208, 0.8)"),
                     color=rx.color_mode_cond(black, white),
                 ),
                 
@@ -423,7 +431,10 @@ def upload():
         ),
         padding="1em",
         height=pg_size + "vh",
-        background="radial-gradient(circle at 22% 11%,rgba(229, 255, 231,0.8),hsla(0,0%,100%,0) 30%),radial-gradient(circle at 82% 40%,rgba(253, 251, 230,0.8),hsla(0,0%,100%,0) 45%),radial-gradient(circle at 15% 85%,rgba(255, 227, 237, 0.8),hsla(0,0%,100%,0) 40%)",
+        background=rx.color_mode_cond(
+            "radial-gradient(circle at 22% 11%,rgba(229, 255, 231,0.8),hsla(0,0%,100%,0) 30%),radial-gradient(circle at 82% 40%,rgba(253, 251, 230,0.8),hsla(0,0%,100%,0) 45%),radial-gradient(circle at 15% 85%,rgba(255, 227, 237, 0.8),hsla(0,0%,100%,0) 40%)",
+            "radial-gradient(circle at 22% 11%,rgba(124, 147, 124,0.8),hsla(0,0%,100%,0) 30%),radial-gradient(circle at 82% 40%,rgba(187, 184, 159,0.8),hsla(0,0%,100%,0) 45%),radial-gradient(circle at 15% 85%,rgba(221, 203, 209, 0.8),hsla(0,0%,100%,0) 40%)"
+        ),  
     )
 
 def studyplan() -> rx.Component:
