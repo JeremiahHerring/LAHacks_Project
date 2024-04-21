@@ -4,7 +4,8 @@
 <br>
 
 ## Preview 🌷
-<img width="480" alt="home" src="https://github.com/JeremiahHerring/LAHacks_Project/assets/149734738/4d556d10-2c07-429a-b3a2-d882a76cc390">  <img width="480" alt="homeblack" src="https://github.com/JeremiahHerring/LAHacks_Project/assets/149734738/d7e20d14-4089-458e-be3c-b5d1c8b45ef9">  <img width="480" alt="choices" src="https://github.com/JeremiahHerring/LAHacks_Project/assets/149734738/a683c3b4-89d2-4217-9056-1422493e0a86">
+<img width="480" alt="home" src="https://github.com/JeremiahHerring/LAHacks_Project/assets/149734738/4d556d10-2c07-429a-b3a2-d882a76cc390">  <img width="480" alt="homeblack" src="https://github.com/JeremiahHerring/LAHacks_Project/assets/149734738/d7e20d14-4089-458e-be3c-b5d1c8b45ef9">  <img width="480" alt="choices" src="https://github.com/JeremiahHerring/LAHacks_Project/assets/149734738/a683c3b4-89d2-4217-9056-1422493e0a86">  <img width="480" alt="plan" src="https://github.com/JeremiahHerring/LAHacks_Project/assets/149734738/0ae9fd5c-12a7-4fc7-9d63-8edd52ca114f">
+
 <br>
 <br>
 
