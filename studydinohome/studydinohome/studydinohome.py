@@ -29,7 +29,8 @@ def navigation():
         rx.hstack(
             rx.link(
                 rx.hstack(
-                    rx.heading("studydino | merging AI and mental health", size = "6",
+                    rx.image(src="/dino_trans.png", width="50px"),
+                    rx.heading("studydino | merging AI and mental health", size = "5",
                                style=header1_style),
                     align="center",
                 ),
@@ -41,7 +42,7 @@ def navigation():
             justify="center",
             border_bottom="0.2em solid #F0F0F0",
             padding_x="10em",
-            padding="2em",
+            padding="1.5em",
             bg="rgba(255, 255, 255, 0.97)",
         ),
         position="fixed",
@@ -61,7 +62,7 @@ def make_plan():
     return rx.dialog.root(
         rx.dialog.trigger(rx.button("Make my custom study plan", size="4", radius="full")),
         rx.dialog.content(
-            rx.dialog.title("Your custom study plan"),
+            rx.dialog.title("Your custom study plan", style=header1_style),
             rx.dialog.description(
                 "Select all that you want in your plan",
                 size="2",
@@ -76,16 +77,90 @@ def make_plan():
                         size="2",
                         mb="1",
                         weight="bold",
+                        style=header1_style,
                     ),
-                    rx.input(placeholder="Ex. LA Hacks"),
+                    rx.input(placeholder="Ex. Cat Rogers"),
                     rx.text(
                         "Email",
                         as_='div',
                         size="2",
                         mb="1",
                         weight="bold",
+                        style=header1_style,
                     ),
-                    rx.input(placeholder="Ex. lahacks@gmail.com"),
+                    rx.input(placeholder="Ex. abc@gmail.com"),
+                    rx.text(
+                        "How long do you have to study?",
+                        as_='div',
+                        size="2",
+                        mb="1",
+                        weight="bold",
+                        style=header1_style,
+                    ),
+                    rx.hstack(
+                        rx.input(
+                            name = "days",
+                            default_value="0",
+                            placeholder="0-31",
+                            type="number",
+                            min="0",
+                            max="31",
+                            required=False,
+                        ),
+                        rx.text(
+                        "days",
+                        as_='div',
+                        size="2",
+                        mb="1",
+                        weight="bold",
+                        style=header1_style,
+                        ),
+                        rx.input(
+                            name = "weeks",
+                            default_value="0",
+                            placeholder="0-4",
+                            type="number",
+                            min="0",
+                            max="4",
+                            required=False,
+                        ),
+                        rx.text(
+                        "weeks",
+                        as_='div',
+                        size="2",
+                        mb="1",
+                        weight="bold",
+                        style=header1_style,
+                        ),
+                        rx.input(
+                            name = "months",
+                            default_value="0",
+                            placeholder="0-12",
+                            type="number",
+                            min="0",
+                            max="12",
+                            required=False,
+                        ),
+                        rx.text(
+                        "months",
+                        as_='div',
+                        size="2",
+                        mb="1",
+                        weight="bold",
+                        style=header1_style,
+                        ),
+                        align="center",
+                        spacing="4"
+                    ),
+                    rx.divider(),
+                    rx.text(
+                        "What should we customize your plan for?",
+                        as_='div',
+                        size="2",
+                        mb="1",
+                        weight="bold",
+                        style=header1_style,
+                    ),
                     rx.hstack(
                         rx.vstack(
                             rx.text("Stress"),
@@ -125,23 +200,21 @@ def make_plan():
                         align="center",
                         justify="between",
                     ),
+                    rx.flex(
+                        rx.dialog.close(
+                            rx.button("cancel", background_color="rgba(255, 227, 237, 0.8)"),
+                        ),
+                        rx.button("start a plan", type="submit"),
+                        padding_top="1em",
+                        spacing="3",
+                        mt="4",
+                        justify="end",
+                    ), 
                     direction="column",
                     spacing="3",
                 ),
                 on_submit=FormState.new_submission,
                 reset_on_submit=True,
-            ),
-            rx.flex(
-                rx.dialog.close(
-                    rx.button("cancel", background_color="rgba(255, 227, 237, 0.8)"),
-                ),
-                rx.dialog.close(
-                    rx.button("start a plan"),
-                ),
-                padding_top="1em",
-                spacing="3",
-                mt="4",
-                justify="end",
             ),
             style={"max_width": 700},
             box_shadow="lg",
@@ -157,7 +230,7 @@ def index() -> rx.Component:
         navigation(),
         rx.vstack(
             rx.vstack(
-                rx.heading("Welcome to studydino", size="9", style=header1_style),
+                rx.heading("Welcome to ", rx.text.em("studydino"), size="9", style=header1_style),
                 rx.text("where academics meet AI and mental health",
                     size="6",
                     font_family="Arial Rounded MT Bold",
