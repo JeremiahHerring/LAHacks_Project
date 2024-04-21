@@ -18,7 +18,6 @@ docs_url = "https://reflex.dev/docs/getting-started/introduction/"
 filename = f"{config.app_name}/{config.app_name}.py"
 color = "rgb(107,99,246)"
 
-
 def upload_to_gemini(pdf_path):
     """Upload the PDF file to GeminiAPI."""
     text_data = extract_text_from_pdf(pdf_path)
@@ -94,7 +93,6 @@ def index():
         )
 
     )
-
 
 app = rx.App()
 app.add_page(index)

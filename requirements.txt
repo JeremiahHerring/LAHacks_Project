@@ -1,4 +1,4 @@
+reflex==0.4.8.post1
 google-generativeai
 python-dotenv
-streamlit
-
+PyPDF2
