@@ -56,7 +56,24 @@ class FormState(rx.State):
     form_data: dict = {}
 
     def new_submission(self, form_data: dict):
+        print(form_data)
         self.form_data = form_data
+        time_str = ""
+        mental_health = []
+
+        for entry, value in form_data.items():
+            if entry == "days":
+                time_str += form_data["days"] + " days "
+            if entry == "weeks":
+                time_str += form_data["days"] + " weeks "
+            if entry == "months":
+                time_str += form_data["months"] + " months "
+            if value == "on":
+                mental_health.append(entry)
+        selected_options_string = ', '.join(mental_health)
+
+        print(selected_options_string)
+        print(time_str)
 
 def make_plan():
     return rx.dialog.root(
@@ -79,7 +96,7 @@ def make_plan():
                         weight="bold",
                         style=header1_style,
                     ),
-                    rx.input(placeholder="Ex. Cat Rogers"),
+                    rx.input(placeholder="Ex. Cat Rogers", name="name"),
                     rx.text(
                         "Email",
                         as_='div',
@@ -88,7 +105,7 @@ def make_plan():
                         weight="bold",
                         style=header1_style,
                     ),
-                    rx.input(placeholder="Ex. abc@gmail.com"),
+                    rx.input(placeholder="Ex. abc@gmail.com", name="email"),
                     rx.text(
                         "How long do you have to study?",
                         as_='div',
