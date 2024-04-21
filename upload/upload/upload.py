@@ -22,7 +22,9 @@ color = "rgb(107,99,246)"
 def upload_to_gemini(pdf_path):
     """Upload the PDF file to GeminiAPI."""
     text_data = extract_text_from_pdf(pdf_path)
-    combined_prompt = "test anxiety, burnt out\n" + text_data
+    time = "3 months"
+    mental_health = "test anxiety, burnt out"
+    combined_prompt = time + "\n" + mental_health + "\n" + text_data
     response = model.generate_content(combined_prompt)
     print(response.text)
 
@@ -53,8 +55,6 @@ class State(rx.State):
                 self.img.append(file.filename)
             except Exception as e:
                 print(f"Error handling upload: {e}")
-
-
 
 def index():
     """The main view"""
