@@ -14,7 +14,7 @@ class State(rx.State):
     # we need functions to accomodate for that 
     test_list: list[list] = [
         ['test1', 'apple'], 
-        ['test2', 'no way....'],
+        ['test2', 'no way............................................................jiowjoirewoijrjiowerijowefjijiwoefiIM GONNA LOSE IT'],
         ]
 
 def contained_card(input_heading: str, input_text: str) -> rx.container:
@@ -47,7 +47,7 @@ def card(input_heading: str, input_text: str) -> rx.card:
                 ),
             ),
             spacing="1",
-            padding="5px"
+            padding="50px"
         ),
         as_child=True,
         
@@ -56,21 +56,14 @@ def card(input_heading: str, input_text: str) -> rx.card:
 def index() -> rx.Component:
     # we're gonna test smth a little crazy...
     return rx.center(
-        rx.theme_panel(),
         rx.vstack(
             # we want a vertical stack of all the containers that will
             # be created by parsing the text
             rx.box(
-                rx.heading("Study Plan changed", size="8", padding='2'),
+                rx.heading("Study Plan", size="8", padding_bottom='5px'),
                 rx.foreach(
                     State.test_list, lambda values: contained_card(values[0], values[1])
                 ),
-                # contained_card('test1', 'apple'),
-                # contained_card('test2', 'no way....'),
-                # card('test1', 'apple'),
-                # card('test2', 'no way....'),
-               
-                # rx.text("Get started by editing ", rx.code(filename)),
             ),
             spacing='2',
         ),
