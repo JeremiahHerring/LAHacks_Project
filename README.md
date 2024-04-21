@@ -12,6 +12,7 @@
 - Personalized study guide based on mental, academic subject, and timeframe needs
 - Reads any form of text used for studying (e.g. Powerpoint, syllabus, lecture notes)
 - Uses Gemini AI to make the guide as personalized as possible
+- Supports light and dark mode!
 <br>
 <br>
 
