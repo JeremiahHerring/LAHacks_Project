@@ -27,5 +27,5 @@ StudyDino is able to customize the experience of students based off their mental
 2. Install Reflex
 3. Change your directory to ./studydinohome/
 4. In your command line, type “reflex deploy” (make sure to type N for each Y/N question and *enter* for non-required questions)
-5. Once deployed, use the link to interact with the web app\n
+5. Once deployed, use the link to interact with the web app<br>
 **The link is available here and is accessible once the steps have been followed: https://studydinohome.reflex.run/**
