@@ -5,6 +5,8 @@ import reflex as rx
 docs_url = "https://reflex.dev/docs/getting-started/introduction/"
 filename = f"{config.app_name}/{config.app_name}.py"
 pg_size = "150"
+black = "rgba(0, 0, 0, 0.97)"
+white = "rgba(255, 255, 255, 0.97)"
 
 class State(rx.State):
     """The app state."""
@@ -15,11 +17,8 @@ header1_style = { #sets font for header
 
 style1 = {
     "font_family": "Arial",
-    rx.heading: {
-        "color": "black",
-    },
     rx.button: {
-        "background_color": "#C3E3C3", #default CSS color: DarkSeaGreen
+        "background_color": rx.color_mode_cond("#C3E3C3", "#568356"), #default CSS color: DarkSeaGreen
         "color": "black",
     },
 }
@@ -30,20 +29,22 @@ def navigation():
             rx.link(
                 rx.hstack(
                     rx.image(src="/dino_trans.png", width="50px"),
-                    rx.heading("studydino | merging AI and mental health", size = "5",
-                               style=header1_style),
+                    rx.heading(rx.text.em("studydino"), " | merging AI and mental health", size = "5",
+                               style=header1_style, color=rx.color_mode_cond(black, white)
+                    ),
                     align="center",
                 ),
                 href="/",
             ),
             rx.spacer(width="100%"),
             #menu here
+            rx.color_mode.button(rx.color_mode.icon(), size="3", float="right", color=rx.color_mode_cond(black, white)),
+            bg=rx.color_mode_cond(white, black),
             align="center",
             justify="center",
             border_bottom="0.2em solid #F0F0F0",
             padding_x="10em",
             padding="1.5em",
-            bg="rgba(255, 255, 255, 0.97)",
         ),
         position="fixed",
         width="100%",
@@ -221,7 +222,7 @@ def make_plan():
                         rx.dialog.close(
                             rx.button("cancel", background_color="rgba(255, 227, 237, 0.8)"),
                         ),
-                        rx.button("start a plan", type="submit"),
+                        rx.button("start a plan", type="submit", background_color="#C3E3C3"),
                         padding_top="1em",
                         spacing="3",
                         mt="4",
@@ -263,7 +264,10 @@ def index() -> rx.Component:
         ),
         padding="1em",
         height=pg_size + "vh",
-        background="radial-gradient(circle at 22% 11%,rgba(229, 255, 231,0.8),hsla(0,0%,100%,0) 30%),radial-gradient(circle at 82% 40%,rgba(253, 251, 230,0.8),hsla(0,0%,100%,0) 45%),radial-gradient(circle at 15% 85%,rgba(255, 227, 237, 0.8),hsla(0,0%,100%,0) 40%)",
+        background=rx.color_mode_cond(
+            "radial-gradient(circle at 22% 11%,rgba(229, 255, 231,0.8),hsla(0,0%,100%,0) 30%),radial-gradient(circle at 82% 40%,rgba(253, 251, 230,0.8),hsla(0,0%,100%,0) 45%),radial-gradient(circle at 15% 85%,rgba(255, 227, 237, 0.8),hsla(0,0%,100%,0) 40%)",
+            "radial-gradient(circle at 22% 11%,rgba(124, 147, 124,0.8),hsla(0,0%,100%,0) 30%),radial-gradient(circle at 82% 40%,rgba(187, 184, 159,0.8),hsla(0,0%,100%,0) 45%),radial-gradient(circle at 15% 85%,rgba(221, 203, 209, 0.8),hsla(0,0%,100%,0) 40%)"
+        ),                 
     )
 
 app = rx.App(style=style1,
