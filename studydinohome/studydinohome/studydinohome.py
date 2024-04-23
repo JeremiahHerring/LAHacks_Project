@@ -19,15 +19,17 @@ filename = f"{config.app_name}/{config.app_name}.py"
 pg_size = "150"
 black = "rgba(0, 0, 0, 0.97)"
 white = "rgba(255, 255, 255, 0.97)"
+response_text = ""
 
 def upload_to_gemini(pdf_path):
+    global response_text
     """Upload the PDF file to GeminiAPI."""
     text_data = extract_text_from_pdf(pdf_path)
-    time = "3 months"
-    mental_health = "test anxiety, burnt out"
-    combined_prompt = time + "\n" + mental_health + "\n" + text_data
+    combined_prompt = FormState.time_str + "\n" + FormState.selected_options_string + "\n" + text_data
     response = model.generate_content(combined_prompt)
-    print(response.text)
+    #print(response.text)
+    response_text = response.text
+    State.ai_plan = format_input(response_text).replace('\n', '\n\n')
 
 # the removed astrick version should be passed through here 
 def format_input(s: str) -> str:
@@ -56,8 +58,8 @@ def format_input(s: str) -> str:
 class State(rx.State):
     """The app state."""
     # include the given text
-    test_str = 'Week 1:\nFocus: Introduction to Syntax Analysis, Grammar, and Chomsky Hierarchy\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\n\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\nWeek 2:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_inpuuiefeufwuiefuishdfusehf\nWeek 3:\nai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input ai_input\n'
-    ai_plan: str = format_input(test_str).replace('\n', '\n\n')
+    response = response_text
+    ai_plan = format_input(response).replace('\n', '\n\n')
 
     # The images to show.
     img: list[str]
@@ -78,12 +80,11 @@ class State(rx.State):
 
                 # Upload PDF to Gemini and convert to text
                 upload_to_gemini(pdf_path)
-
                 # Update the img var
                 self.img.append(file.filename)
             except Exception as e:
                 print(f"Error handling upload: {e}")
-
+  
     def upload_page(self):
         return rx.redirect("/upload")
     def studyplan_page(self):
@@ -141,6 +142,8 @@ def navigation():
 
 class FormState(rx.State):
     form_data: dict = {}
+    time_str = ""
+    selected_options_string: str = ""
 
     def new_submission(self, form_data: dict):
         print(form_data)
@@ -158,12 +161,14 @@ class FormState(rx.State):
             if value == "on":
                 mental_health.append(entry)
         selected_options_string = ', '.join(mental_health)
-
-        print(selected_options_string)
+        
         print(time_str)
-        with open("form_data.txt", "w") as file:
-            file.write(selected_options_string + "\n")
-            file.write(time_str + "\n")
+        print(selected_options_string)
+        FormState.time_str = time_str
+        print(FormState.time_str)
+        FormState.selected_options_string = selected_options_string
+        print(FormState.selected_options_string)
+
 
 def make_plan():
     return rx.dialog.root(
@@ -438,6 +443,7 @@ def upload():
     )
 
 def studyplan() -> rx.Component:
+    print("State.ai_plan")
     return rx.center(
         navigation(),
         rx.vstack(
